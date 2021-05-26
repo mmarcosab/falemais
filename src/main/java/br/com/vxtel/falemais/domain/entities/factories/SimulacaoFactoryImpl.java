@@ -1,7 +1,9 @@
 package br.com.vxtel.falemais.domain.entities.factories;
 
 import br.com.vxtel.falemais.domain.entities.Simulacao;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SimulacaoFactoryImpl implements SimulacaoFactory {
 
     @Override

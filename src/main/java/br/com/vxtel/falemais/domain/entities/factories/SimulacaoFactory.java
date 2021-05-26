@@ -6,7 +6,7 @@ public interface SimulacaoFactory {
     Simulacao create(String codigoOrigem,
                      String codigoDestino,
                      int tempoChamada,
-                     int codigoPlano,
+                     int minutosPlano,
                      Double valorComPlano,
                      Double valorSemPlano);
 }

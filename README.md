@@ -44,22 +44,85 @@ Exemplo de valores:
 
 ## Funcionalidades
 
-- Cálculo do valor da ligação usando ou não algum dos planos
-
+- Cálculo do valor da ligação usando um plano;
+- Cálculo do valor da ligação sem usar um plano;
 
 ## Tecnologias
 
 FaleMais usa as seguintes tecnologias:
 
+Backend:
 - [Java](https://www.java.com/pt-BR/) - Linguagem de programação utilizada para desenvolvimento do módulo backend
 - [Spring Boot](https://spring.io/projects/spring-boot/) - Framewwork utilizado para auxiliar no desenvolvimento do módulo backend
-- [JavaScript](https://www.javascript.com/) - Linguagem de programação utilizada para desenvolvimento do módulo frontend
-- [React](https://pt-br.reactjs.org/) - Framewwork utilizado para auxiliar no desenvolvimento do módulo frontend
-- [MySql Database](https://www.mysql.com/) - Banco de dados utilizado para lidar com as informações necessárias para uso da aplicação
-- [Docker](https://www.docker.com/) - Tecnologia utilizada a entrega da aplicação
-
+- [Docker](https://www.docker.com/) - Tecnologia utilizada para a entrega da aplicação
+- [Lombok](https://projectlombok.org/) - Para simplificar o código 
+- [Swagger](https://swagger.io/) - Para documentar e testar a api
 
 ## Instalação
 
 
 ## Testes
+### Testes unitários
+
+#### O que foi usado?
+
+- Plugins instalados via pom.xml para execução dos testes unitários no build
+- JUnit 5
+- Mockito
+- JaCoCo para os devs ficarem atentos a cobertura, sem precisarem iniciar a esteira
+
+
+#### Dependências:
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.7.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.7.1</version>
+            <scope>test</scope>
+        </dependency>
+
+
+#### Plugins:
+
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+#### Como verificar a cobertura de testes ?
+
+- Na IDE execute o comando "mvn clean install" ou "mvn build", o arquivo /target/site/jacoco/index.html será gerado e toda a cobertura pode ser verificada.
+- Sem IDE, use o prompt do windows ou o git bash e navegue até a raiz do projeto, execute o comando "mvn clean install" ou "mvn build", o arquivo /target/site/jacoco/index.html será gerado e toda a cobertura pode ser verificada.
+
+ 

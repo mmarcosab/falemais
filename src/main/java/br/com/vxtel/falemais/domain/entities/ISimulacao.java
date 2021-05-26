@@ -8,5 +8,7 @@ public interface ISimulacao {
     int getCodigoPlano();
     Double getValorComPlano();
     Double getValorSemplano();
+    Double calculaValorComPlano(double valorMinuto, int duracaoChamada, int minutosPlano);
+    Double calculaValorSomPlano(double valorMinuto, int duracaoChamada);
 
 }
