@@ -2,47 +2,44 @@ package br.com.vxtel.falemais.domain.usecases.impl;
 
 import br.com.vxtel.falemais.adapters.controllers.request.SimulacaoRequestModel;
 import br.com.vxtel.falemais.adapters.controllers.response.SimulacaoResponseModel;
+import br.com.vxtel.falemais.adapters.presenters.SimulacaoPresenter;
 import br.com.vxtel.falemais.domain.entities.Simulacao;
-import br.com.vxtel.falemais.domain.entities.factories.SimulacaoFactory;
+import br.com.vxtel.falemais.domain.factories.SimulacaoFactory;
 import br.com.vxtel.falemais.domain.usecases.SimulaChamadaUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 
-@Component
+
+@Slf4j
 @RequiredArgsConstructor
 public class SimulaChamadaUseCaseImpl implements SimulaChamadaUseCase {
 
     private final SimulacaoFactory simulacaoFactory;
+    private final SimulacaoPresenter simulacaoPresenter;
 
     @Override
     public SimulacaoResponseModel execute(SimulacaoRequestModel simulacaoRequestModel) {
+        try {
+            Simulacao simulacao = simulacaoFactory.create(simulacaoRequestModel.getCodigoOrigem(),
+                    simulacaoRequestModel.getCodigoDestino(),
+                    simulacaoRequestModel.getDuracaoChamada(),
+                    simulacaoRequestModel.getMinutosPlano(),
+                    simulacaoRequestModel.getValorMinuto());
 
-        // Passo 1: Calcular valor da chamada com plano
-        double valorComPlano = Simulacao.calculaValorComPlano(simulacaoRequestModel.getValorMinuto(),
-                                                              simulacaoRequestModel.getDuracaoChamada(),
-                                                              simulacaoRequestModel.getMinutosPlano());
+            SimulacaoResponseModel response = SimulacaoResponseModel.builder()
+                    .codigoOrigem(simulacao.getCodigoOrigem())
+                    .codigoDestino(simulacao.getCodigoDestino())
+                    .minutosPlano(simulacao.getMinutosPlano())
+                    .duracaoChamada(simulacao.getDuracaoChamada())
+                    .valorComPlano(simulacao.getValorComPlano())
+                    .valorSemPlano(simulacao.getValorSemPlano())
+                    .build();
 
-        // Passo 2: Calcular valor da chamada sem plano
-        double valorSemPlano = Simulacao.calculaValorSemPlano(simulacaoRequestModel.getValorMinuto(), simulacaoRequestModel.getDuracaoChamada());
-
-
-        // Passo 3: Converter em uma entidade de negocio
-        Simulacao simulacao =simulacaoFactory.create(simulacaoRequestModel.getCodigoOrigem(),
-                                                     simulacaoRequestModel.getCodigoDestino(),
-                                                     simulacaoRequestModel.getDuracaoChamada(),
-                                                     simulacaoRequestModel.getMinutosPlano(),
-                                                     valorComPlano,
-                                                     valorSemPlano);
-
-        // Passo 4: Montar resposta
-        return SimulacaoResponseModel.builder()
-                .codigoOrigem(simulacao.getCodigoOrigem())
-                .codigoDestino(simulacao.getCodigoDestino())
-                .minutosPlano(simulacao.getMinutosPlano())
-                .duracaoChamada(simulacao.getTempoDeChamada())
-                .valorComPlano(simulacao.getValorComPlano())
-                .valorSemplano(simulacao.getValorSemPlano())
-                .build();
+            return simulacaoPresenter.prepareSuccessView(response);
+        } catch (Exception e){
+            log.error("um erro ocorreu ao processar a requisicao", simulacaoRequestModel);
+            return simulacaoPresenter.prepareFailView(e.getMessage());
+        }
     }
 
 }

@@ -1,6 +1,7 @@
 package br.com.vxtel.falemais.domain.entities;
 
-import br.com.vxtel.falemais.domain.entities.factories.SimulacaoFactoryImpl;
+import br.com.vxtel.falemais.adapters.controllers.request.SimulacaoRequestModel;
+import br.com.vxtel.falemais.domain.factories.SimulacaoFactoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -14,9 +15,7 @@ public class SimulacaoTest {
         int tempoChamada = 20;
         double valorMinuto = 1.90;
         int minutosPlano = 30;
-        Double valorComplano = Simulacao.calculaValorComPlano(valorMinuto, 20, minutosPlano);
-        Double valorSemplano = Simulacao.calculaValorSemPlano(valorMinuto, 20);
-        Simulacao simulacao = simulacaoFactory.create("011", "016", tempoChamada, minutosPlano, valorComplano, valorSemplano);
+        Simulacao simulacao = simulacaoFactory.create("011", "016", tempoChamada, minutosPlano, valorMinuto);
         Assertions.assertFalse(simulacao.getValorComPlano() > 0);
         Assertions.assertEquals(38.00, simulacao.getValorSemPlano());;
     }
@@ -26,9 +25,7 @@ public class SimulacaoTest {
         int tempoChamada = 30;
         double valorMinuto = 1.90;
         int minutosPlano = 30;
-        Double valorComplano = Simulacao.calculaValorComPlano(valorMinuto, tempoChamada, minutosPlano);
-        Double valorSemplano = Simulacao.calculaValorSemPlano(valorMinuto, tempoChamada);
-        Simulacao simulacao = simulacaoFactory.create("011", "016", tempoChamada, minutosPlano, valorComplano, valorSemplano);
+        Simulacao simulacao = simulacaoFactory.create("011", "016", tempoChamada, minutosPlano, valorMinuto);
         Assertions.assertFalse(simulacao.getValorComPlano() > 0);
         Assertions.assertEquals(57.00, simulacao.getValorSemPlano());;
     }
@@ -38,9 +35,7 @@ public class SimulacaoTest {
         int tempoChamada = 31;
         double valorMinuto = 1.90;
         int minutosPlano = 30;
-        Double valorComplano = Simulacao.calculaValorComPlano(valorMinuto, tempoChamada, minutosPlano);
-        Double valorSemplano = Simulacao.calculaValorSemPlano(valorMinuto, tempoChamada);
-        Simulacao simulacao = simulacaoFactory.create("011", "016", tempoChamada, minutosPlano, valorComplano, valorSemplano);
+        Simulacao simulacao = simulacaoFactory.create("011", "016", tempoChamada, minutosPlano, valorMinuto);
         Assertions.assertEquals(2.09, simulacao.getValorComPlano());
         Assertions.assertEquals(58.90, simulacao.getValorSemPlano());
     }
@@ -50,9 +45,7 @@ public class SimulacaoTest {
         int tempoChamada = 59;
         double valorMinuto = 1.70;
         int minutosPlano = 60;
-        Double valorComplano = Simulacao.calculaValorComPlano(valorMinuto, tempoChamada, minutosPlano);
-        Double valorSemplano = Simulacao.calculaValorSemPlano(valorMinuto, tempoChamada);
-        Simulacao simulacao = simulacaoFactory.create("011", "017", tempoChamada,minutosPlano, valorComplano, valorSemplano);
+        Simulacao simulacao = simulacaoFactory.create("011", "017", tempoChamada,minutosPlano, valorMinuto);
         Assertions.assertEquals(0.0, simulacao.getValorComPlano());
         Assertions.assertEquals(100.3, simulacao.getValorSemPlano());
     }
@@ -62,9 +55,7 @@ public class SimulacaoTest {
         int tempoChamada = 60;
         double valorMinuto = 1.70;
         int minutosPlano = 60;
-        Double valorComplano = Simulacao.calculaValorComPlano(valorMinuto, tempoChamada, minutosPlano);
-        Double valorSemplano = Simulacao.calculaValorSemPlano(valorMinuto, tempoChamada);
-        Simulacao simulacao = simulacaoFactory.create("011", "017", tempoChamada, minutosPlano, valorComplano, valorSemplano);
+        Simulacao simulacao = simulacaoFactory.create("011", "017", tempoChamada, minutosPlano, valorMinuto);
         Assertions.assertEquals(0.0, simulacao.getValorComPlano());
         Assertions.assertEquals(102.0, simulacao.getValorSemPlano());
     }
@@ -74,9 +65,7 @@ public class SimulacaoTest {
         int tempoChamada = 80;
         double valorMinuto = 1.70;
         int minutosPlano = 60;
-        Double valorComplano = Simulacao.calculaValorComPlano(valorMinuto, tempoChamada, minutosPlano);
-        Double valorSemplano = Simulacao.calculaValorSemPlano(valorMinuto, tempoChamada);
-        Simulacao simulacao = simulacaoFactory.create("011", "017", tempoChamada, minutosPlano, valorComplano, valorSemplano);
+        Simulacao simulacao = simulacaoFactory.create("011", "017", tempoChamada, minutosPlano, valorMinuto);
         Assertions.assertEquals(37.40, simulacao.getValorComPlano());
         Assertions.assertEquals(136.0, simulacao.getValorSemPlano());
     }
@@ -86,9 +75,7 @@ public class SimulacaoTest {
         int tempoChamada = 119;
         double valorMinuto = 1.90;
         int minutosPlano = 120;
-        Double valorComplano = Simulacao.calculaValorComPlano(valorMinuto, tempoChamada, minutosPlano);
-        Double valorSemplano = Simulacao.calculaValorSemPlano(valorMinuto, tempoChamada);
-        Simulacao simulacao = simulacaoFactory.create("018", "011", tempoChamada, minutosPlano, valorComplano, valorSemplano);
+        Simulacao simulacao = simulacaoFactory.create("018", "011", tempoChamada, minutosPlano, valorMinuto);
         Assertions.assertEquals(0.0, simulacao.getValorComPlano());
         Assertions.assertEquals(226.10, simulacao.getValorSemPlano());
     }
@@ -99,9 +86,7 @@ public class SimulacaoTest {
         int tempoChamada = 120;
         double valorMinuto = 1.90;
         int minutosPlano = 120;
-        Double valorComplano = Simulacao.calculaValorComPlano(valorMinuto, tempoChamada, minutosPlano);
-        Double valorSemplano = Simulacao.calculaValorSemPlano(valorMinuto, tempoChamada);
-        Simulacao simulacao = simulacaoFactory.create("018", "011", tempoChamada, minutosPlano, valorComplano, valorSemplano);
+        Simulacao simulacao = simulacaoFactory.create("018", "011", tempoChamada, minutosPlano, valorMinuto);
         Assertions.assertEquals(0.0, simulacao.getValorComPlano());
         Assertions.assertEquals(228.00, simulacao.getValorSemPlano());
     }
@@ -113,15 +98,124 @@ public class SimulacaoTest {
         int tempoChamada = 200;
         double valorMinuto = 1.90;
         int minutosPlano = 120;
-        Double valorComplano = Simulacao.calculaValorComPlano(valorMinuto, tempoChamada, minutosPlano);
-        Double valorSemplano = Simulacao.calculaValorSemPlano(valorMinuto, tempoChamada);
-        Simulacao simulacao = simulacaoFactory.create("018", "011", tempoChamada, minutosPlano, valorComplano, valorSemplano);
+        Simulacao simulacao = simulacaoFactory.create("018", "011", tempoChamada, minutosPlano, valorMinuto);
         Assertions.assertEquals(167.20, simulacao.getValorComPlano());
         Assertions.assertEquals(380.0, simulacao.getValorSemPlano());
         Assertions.assertEquals("018", simulacao.getCodigoOrigem());
         Assertions.assertEquals("011", simulacao.getCodigoDestino());
-        Assertions.assertEquals(200, simulacao.getTempoDeChamada());
+        Assertions.assertEquals(200, simulacao.getDuracaoChamada());
         Assertions.assertEquals(120, simulacao.getMinutosPlano());
+    }
+
+    @Test
+    public void validarCodigoOrigemNulo(){
+
+        SimulacaoRequestModel requestModel = SimulacaoRequestModel.builder()
+                .codigoDestino("017")
+                .duracaoChamada(31)
+                .minutosPlano(30)
+                .valorMinuto(1.70)
+                .build();
+
+        try {
+            simulacaoFactory.create(requestModel.getCodigoOrigem(), requestModel.getCodigoDestino(), requestModel.getDuracaoChamada(), requestModel.getMinutosPlano(), requestModel.getValorMinuto());
+        } catch (Exception e){
+            Assertions.assertEquals("Codigo de origem nulo ou vazio" ,e.getMessage());
+        }
+
+    }
+
+    @Test
+    public void validarCodigoOrigemVazio(){
+
+        SimulacaoRequestModel requestModel = SimulacaoRequestModel.builder()
+                .codigoDestino("017")
+                .duracaoChamada(31)
+                .minutosPlano(30)
+                .valorMinuto(1.70)
+                .build();
+
+        try {
+            simulacaoFactory.create(requestModel.getCodigoOrigem(), requestModel.getCodigoDestino(), requestModel.getDuracaoChamada(), requestModel.getMinutosPlano(), requestModel.getValorMinuto());
+        } catch (Exception e){
+            Assertions.assertEquals("Codigo de origem nulo ou vazio" ,e.getMessage());
+        }
+
+    }
+
+    @Test
+    public void validarCodigoDestinoNulo(){
+
+        SimulacaoRequestModel requestModel = SimulacaoRequestModel.builder()
+                .codigoOrigem("017")
+                .duracaoChamada(31)
+                .minutosPlano(30)
+                .valorMinuto(1.70)
+                .build();
+
+        try {
+            simulacaoFactory.create(requestModel.getCodigoOrigem(), requestModel.getCodigoDestino(), requestModel.getDuracaoChamada(), requestModel.getMinutosPlano(), requestModel.getValorMinuto());
+        } catch (Exception e){
+            Assertions.assertEquals("Codigo de destino nulo ou vazio" ,e.getMessage());
+        }
+
+    }
+
+    @Test
+    public void validarCodigoDestinoVazio(){
+
+        SimulacaoRequestModel requestModel = SimulacaoRequestModel.builder()
+                .codigoDestino("")
+                .codigoOrigem("017")
+                .duracaoChamada(31)
+                .minutosPlano(30)
+                .valorMinuto(1.70)
+                .build();
+
+        try {
+            simulacaoFactory.create(requestModel.getCodigoOrigem(), requestModel.getCodigoDestino(), requestModel.getDuracaoChamada(), requestModel.getMinutosPlano(), requestModel.getValorMinuto());
+        } catch (Exception e){
+            Assertions.assertEquals("Codigo de destino nulo ou vazio" ,e.getMessage());
+        }
+
+    }
+
+    @Test
+    public void validarDuracaoChamadaZerada(){
+
+        SimulacaoRequestModel requestModel = SimulacaoRequestModel.builder()
+                .codigoDestino("11")
+                .codigoOrigem("017")
+                .duracaoChamada(0)
+                .minutosPlano(30)
+                .valorMinuto(1.70)
+                .build();
+
+        try {
+            simulacaoFactory.create(requestModel.getCodigoOrigem(), requestModel.getCodigoDestino(), requestModel.getDuracaoChamada(), requestModel.getMinutosPlano(), requestModel.getValorMinuto());
+        } catch (Exception e){
+            Assertions.assertEquals("Duracao da chamada invalida" ,e.getMessage());
+        }
+
+    }
+
+    @Test
+    public void validarMinutosPlanoZerado(){
+
+        SimulacaoRequestModel requestModel = SimulacaoRequestModel.builder()
+                .codigoDestino("11")
+                .codigoOrigem("017")
+                .duracaoChamada(31)
+                .minutosPlano(0)
+                .valorMinuto(1.70)
+                .build();
+
+        try {
+            simulacaoFactory.create(requestModel.getCodigoOrigem(), requestModel.getCodigoDestino(), requestModel.getDuracaoChamada(), requestModel.getMinutosPlano(), requestModel.getValorMinuto());
+        } catch (Exception e){
+            Assertions.assertEquals("O campo minutos do plano esta invalido" ,e.getMessage());
+        }
+
     }
 
 }

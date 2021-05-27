@@ -4,11 +4,9 @@ public interface ISimulacao {
 
     String getCodigoOrigem();
     String getCodigoDestino();
-    int getTempoDeChamada();
-    int getCodigoPlano();
+    int getDuracaoChamada();
+    int getMinutosPlano();
     Double getValorComPlano();
-    Double getValorSemplano();
-    Double calculaValorComPlano(double valorMinuto, int duracaoChamada, int minutosPlano);
-    Double calculaValorSomPlano(double valorMinuto, int duracaoChamada);
+    Double getValorSemPlano();
 
 }

@@ -71,6 +71,8 @@ Backend:
 - Mockito
 - JaCoCo para os devs ficarem atentos a cobertura, sem precisarem iniciar a esteira
 
+#### Documentação
+- Os métodos estão disponiveis na rota http://localhost:8080/falemais/swagger-ui.html
 
 #### Dependências:
 
@@ -126,3 +128,11 @@ Backend:
 - Sem IDE, use o prompt do windows ou o git bash e navegue até a raiz do projeto, execute o comando "mvn clean install" ou "mvn build", o arquivo /target/site/jacoco/index.html será gerado e toda a cobertura pode ser verificada.
 
  
+ 
+## Health
+
+Rotas disponíveis para verificar a saúde e métricas da aplicação:
+
+- http://localhost:8080/actuator/health
+- http://localhost:8080/falemais/actuator/info
+- http://localhost:8080/falemais/actuator/prometheus

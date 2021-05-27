@@ -9,11 +9,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @Api
 @Slf4j
 @RestController
-@RequestMapping("/simulacao")
+@RequestMapping("/simulacoes")
 @RequiredArgsConstructor
 public class SimulacaoController {
 
@@ -21,8 +22,12 @@ public class SimulacaoController {
 
     @ApiOperation("Cria uma simulacao de uma chamada com uso de um plano e sem o uso de um plano")
     @PostMapping
-    public ResponseEntity<SimulacaoResponseModel> create(@RequestBody SimulacaoRequestModel requestModel){
-        return ResponseEntity.ok().body(simulaChamadaUseCase.execute(requestModel));
+    public ResponseEntity create(@RequestBody SimulacaoRequestModel requestModel){
+        try {
+            return ResponseEntity.ok().body(simulaChamadaUseCase.execute(requestModel));
+        } catch (ResponseStatusException e){
+            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
+        }
     }
 
 }

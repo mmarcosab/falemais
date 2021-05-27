@@ -25,6 +25,6 @@ public class SimulacaoResponseModel {
     private Double valorComPlano;
 
     @JsonProperty("valor_sem_plano")
-    private Double valorSemplano;
+    private Double valorSemPlano;
 
 }
