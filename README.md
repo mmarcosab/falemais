@@ -34,13 +34,6 @@ Exemplo de valores:
 | 018     | 011       | 200     | FaleMais 120   | $ 167,20     |    $ 380,00  |
 | 018     | 017       | 100     | FaleMais 30    |      -       |       -      |
 
-## Requisitos Não Funcionais
-
-- RNF01: O Acesso às funcionalidades do sistema deverá ser autenticado e autorizado. O módulo backend deve fazer uso de JWT, enquanto que o módulo frontend deve utilizar usuário e senha.
-- RNF02: A aplicação deve estar disponível 24/7
-- RNF03: O módulo backend do projeto deve utilizar a arquitetura limpa para organização do código
-- RNF04: A aplicação deve ser entregue em um container docker para abstrair tarefas complexas  de instalação
-
 
 ## Funcionalidades
 

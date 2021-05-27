@@ -1,7 +1,6 @@
 package br.com.vxtel.falemais.adapters.controllers;
 
 import br.com.vxtel.falemais.adapters.controllers.request.SimulacaoRequestModel;
-import br.com.vxtel.falemais.adapters.controllers.response.SimulacaoResponseModel;
 import br.com.vxtel.falemais.domain.usecases.SimulaChamadaUseCase;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,8 +23,10 @@ public class SimulacaoController {
     @PostMapping
     public ResponseEntity create(@RequestBody SimulacaoRequestModel requestModel){
         try {
+            log.info("Requisicao recebida: {}", requestModel);
             return ResponseEntity.ok().body(simulaChamadaUseCase.execute(requestModel));
         } catch (ResponseStatusException e){
+            log.error("Houve um erro ao processar a requisicao: {}, ERRO: {}", requestModel, e);
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
     }
