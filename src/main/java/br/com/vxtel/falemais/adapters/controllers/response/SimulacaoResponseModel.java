@@ -7,6 +7,8 @@ import lombok.*;
 @Builder
 @ToString
 @EqualsAndHashCode
+@AllArgsConstructor
+@NoArgsConstructor
 public class SimulacaoResponseModel {
 
     @JsonProperty("codigo_origem")

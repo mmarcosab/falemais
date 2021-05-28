@@ -39,7 +39,7 @@ public class SimulaChamadaUseCaseImpl implements SimulaChamadaUseCase {
 
             return simulacaoPresenter.prepareSuccessView(response);
         } catch (Exception e){
-            log.error("um erro ocorreu ao processar a requisicao", simulacaoRequestModel);
+            log.error("Um erro ocorreu ao processar a requisicao", simulacaoRequestModel);
             return simulacaoPresenter.prepareFailView(e.getMessage());
         }
     }

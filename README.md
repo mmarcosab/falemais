@@ -50,6 +50,8 @@ Backend:
 - [Docker](https://www.docker.com/) - Tecnologia utilizada para a entrega da aplicação
 - [Lombok](https://projectlombok.org/) - Para simplificar o código 
 - [Swagger](https://swagger.io/) - Para documentar e testar a api
+- [JUnit](https://junit.org/junit5/) - Para testes unitários e de integração
+- [Mockito](https://site.mockito.org/) - Para testes unitários
 
 ## Instalação
 
@@ -64,8 +66,10 @@ Backend:
 - Mockito
 - JaCoCo para os devs ficarem atentos a cobertura, sem precisarem iniciar a esteira
 
-#### Documentação
-- Os métodos estão disponiveis na rota http://localhost:8080/falemais/swagger-ui.html
+#### Como verificar a cobertura de testes ?
+
+- Na IDE execute o comando "mvn clean install" ou "mvn build", o arquivo /target/site/jacoco/index.html será gerado e toda a cobertura pode ser verificada.
+- Sem IDE, use o prompt do windows ou o git bash e navegue até a raiz do projeto, execute o comando "mvn clean install" ou "mvn build", o arquivo /target/site/jacoco/index.html será gerado e toda a cobertura pode ser verificada.
 
 #### Dependências:
 
@@ -114,13 +118,86 @@ Backend:
                 </executions>
             </plugin>
 
+### Testes de integração
 
-#### Como verificar a cobertura de testes ?
+#### O que foi feito?
 
-- Na IDE execute o comando "mvn clean install" ou "mvn build", o arquivo /target/site/jacoco/index.html será gerado e toda a cobertura pode ser verificada.
-- Sem IDE, use o prompt do windows ou o git bash e navegue até a raiz do projeto, execute o comando "mvn clean install" ou "mvn build", o arquivo /target/site/jacoco/index.html será gerado e toda a cobertura pode ser verificada.
+- Um plugin foi instalado para que durante o build seja executada uma etapa de testes de integração:
 
- 
+            
+                        <plugin>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-maven-plugin</artifactId>
+                            <configuration>
+                                <excludes>
+                                    <exclude>
+                                        <groupId>org.projectlombok</groupId>
+                                        <artifactId>lombok</artifactId>
+                                    </exclude>
+                                </excludes>
+                            </configuration>
+                            <executions>
+                                <execution>
+                                    <id>run-app-for-integration-tests</id>
+                                    <phase>pre-integration-test</phase>
+                                    <goals>
+                                        <goal>start</goal>
+                                    </goals>
+                                </execution>
+                                <execution>
+                                    <id>stop-app-after-integration-tests</id>
+                                    <phase>post-integration-test</phase>
+                                    <goals>
+                                        <goal>stop</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-failsafe-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <goals>
+                                        <goal>integration-test</goal>
+                                        <goal>verify</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+
+- A anotação @SpringBootTest auxilia nos testes de integração, pois faz com que a aplicação seja iniciada e os testes sejam feitos.            
+É possível ver o início dessa etapa:
+
+        [INFO] 
+        [INFO] --- spring-boot-maven-plugin:2.5.0:start (run-app-for-integration-tests) @ falemais ---
+
+- Exemplo de teste:
+
+        @Test
+        public void testCriarSimulacao018to011Plano120TempoDeChamadaMaior120() throws Exception {
+            RestTemplate restTemplate = new RestTemplate();
+            SimulacaoRequestModel request = SimulacaoRequestModel.builder()
+                    .valorMinuto(1.90)
+                    .minutosPlano(120)
+                    .duracaoChamada(200)
+                    .codigoOrigem("018")
+                    .codigoDestino("011")
+                    .build();
+            SimulacaoResponseModel response = restTemplate.postForObject(urlBase, request, SimulacaoResponseModel.class);
+    
+            Assertions.assertEquals(380.0, response.getValorSemPlano());
+            Assertions.assertEquals(167.20, response.getValorComPlano());
+            Assertions.assertEquals("018", response.getCodigoOrigem());
+            Assertions.assertEquals("011", response.getCodigoDestino());
+            Assertions.assertEquals(120, response.getMinutosPlano());
+            Assertions.assertEquals(200, response.getDuracaoChamada());
+        }
+
+- A quantidade de minutos de cada plano foi utilizada como base para os testes, isso significa que foram feitos testes com valor menor, valor igual e valor maior que a quantidade de minutos de cada plano.
+
+#### Documentação
+- Os métodos estão disponiveis na rota http://localhost:8080/falemais/swagger-ui.html
  
 ## Health
 
@@ -129,3 +206,9 @@ Rotas disponíveis para verificar a saúde e métricas da aplicação:
 - http://localhost:8080/actuator/health
 - http://localhost:8080/falemais/actuator/info
 - http://localhost:8080/falemais/actuator/prometheus
+
+Com isso é possível utilizar softwares como o grafana para monitorar esse serviço.
+
+## Docker
+### /dockerfile
+- Na raiz do projeto existe um arquivo dockerfile, pronto para ser usado e gerar uma imagem docker

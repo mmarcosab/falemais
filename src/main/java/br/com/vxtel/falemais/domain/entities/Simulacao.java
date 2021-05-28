@@ -11,7 +11,7 @@ public class Simulacao implements ISimulacao{
     private Double valorSemPlano;
 
     public Simulacao(String codigoOrigem, String codigoDestino, int duracaoChamada, int minutosPlano, double valorMinuto) throws Exception {
-        validarCampos(codigoOrigem, codigoDestino, duracaoChamada, minutosPlano);
+        validarCampos(codigoOrigem, codigoDestino, duracaoChamada, minutosPlano, valorMinuto);
         this.codigoOrigem = codigoOrigem;
         this.codigoDestino = codigoDestino;
         this.duracaoChamada = duracaoChamada;
@@ -61,7 +61,7 @@ public class Simulacao implements ISimulacao{
     }
 
 
-    public void validarCampos(String codigoOrigem, String codigoDestino, int duracaoChamada, int minutosPlano) throws Exception {
+    public void validarCampos(String codigoOrigem, String codigoDestino, int duracaoChamada, int minutosPlano, double valorMinuto) throws Exception {
         if(codigoOrigem == null || codigoOrigem.isEmpty()) {
             throw new Exception("Codigo de origem nulo ou vazio");
         }
@@ -73,6 +73,9 @@ public class Simulacao implements ISimulacao{
         }
         if(minutosPlano < 1) {
             throw new Exception("O campo minutos do plano esta invalido");
+        }
+        if(valorMinuto < 0.01){
+            throw new Exception("O campo valor do minuto esta invalido");
         }
     }
 
