@@ -257,6 +257,7 @@ Resultado esperado: HttpStatus 409 e a mensagem: 409 CONFLICT "Duracao da chamad
 Resultado esperado: HttpStatus 409 e a mensagem: 409 CONFLICT "O campo valor do minuto esta invalido"
 
 
+Foi disponibilizada uma collection para ser importada no postman com esses testes prontos. Arquivo: falemais.postman_collection.json
 
 ## Documentação
 - Os métodos estão disponiveis na rota http://localhost:8080/falemais/swagger-ui.html
