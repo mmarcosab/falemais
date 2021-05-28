@@ -61,6 +61,7 @@ Backend:
 
 #### Docker
 - Use o arquivo dockerfile na raiz do projeto e gere uma imagem, exemplo de comandos:
+        
         docker build . -- tag repositorio/nome-da-imagem
         docker push tag repositorio/nome-da-imagem
         docker pull repositorio/nome-da-imagem
@@ -206,6 +207,56 @@ Backend:
         }
 
 - A quantidade de minutos de cada plano foi utilizada como base para os testes, isso significa que foram feitos testes com valor menor, valor igual e valor maior que a quantidade de minutos de cada plano.
+
+#### Plano de testes
+
+Testes executados automaticamente no build:
+
+- Plano 30 com duração da chamada menor que o plano.
+Resultado esperado: Com o plano a ligação custa 0.0 e sem o plano o valor do minuto é multiplicado pela duração da chamada
+
+- Plano 30 com duração da chamada igual ao plano.
+Resultado esperado: Com o plano a ligação custa 0.0 e sem o plano o valor do minuto é multiplicado pela duração da chamada
+
+- Plano 30 com duração da chamada maior que o plano.
+Resultado esperado: Com o plano a ligação custa o valor dos minutos excedentes * o valor do minuto com acréscimo de 10% e sem o plano o valor do minuto é multiplicado pela duração da chamada
+
+- Plano 60 com duração da chamada menor que o plano.
+Resultado esperado: Com o plano a ligação custa 0.0 e sem o plano o valor do minuto é multiplicado pela duração da chamada
+ 
+- Plano 60 com duração da chamada igual ao plano.
+Resultado esperado: Com o plano a ligação custa 0.0 e sem o plano o valor do minuto é multiplicado pela duração da chamada
+
+- Plano 60 com duração da chamada maior que o plano.
+Resultado esperado: Com o plano a ligação custa o valor dos minutos excedentes * o valor do minuto com acréscimo de 10% e sem o plano o valor do minuto é multiplicado pela duração da chamada
+
+- Plano 120 com duração da chamada menor que o plano.
+Resultado esperado: Com o plano a ligação custa 0.0 e sem o plano o valor do minuto é multiplicado pela duração da chamada
+
+- Plano 120 com duração da chamada igual ao plano.
+Resultado esperado: Com o plano a ligação custa 0.0 e sem o plano o valor do minuto é multiplicado pela duração da chamada
+
+- Plano 120 com duração da chamada maior que o plano.
+Resultado esperado: Com o plano a ligação custa o valor dos minutos excedentes * o valor do minuto com acréscimo de 10% e sem o plano o valor do minuto é multiplicado pela duração da chamada
+
+Testes manuais:
+
+- Validação do campo codigo de origem.
+Resultado esperado: HttpStatus 409 e a mensagem: 409 CONFLICT "Codigo de origem nulo ou vazio"
+
+- Validação do campo codigo de destino.
+Resultado esperado: HttpStatus 409 e a mensagem: 409 CONFLICT "Codigo de destino nulo ou vazio"
+
+- Validação do campo minutos do plano.
+Resultado esperado: HttpStatus 409 e a mensagem: 409 CONFLICT "O campo minutos do plano esta invalido"
+
+- Validação do campo duracao da chamada.
+Resultado esperado: HttpStatus 409 e a mensagem: 409 CONFLICT "Duracao da chamada invalida"
+
+- Validação do campo valor do minuto.
+Resultado esperado: HttpStatus 409 e a mensagem: 409 CONFLICT "O campo valor do minuto esta invalido"
+
+
 
 #### Documentação
 - Os métodos estão disponiveis na rota http://localhost:8080/falemais/swagger-ui.html
