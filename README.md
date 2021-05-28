@@ -259,6 +259,10 @@ Resultado esperado: HttpStatus 409 e a mensagem: 409 CONFLICT "O campo valor do 
 
 Foi disponibilizada uma collection para ser importada no postman com esses testes prontos. Arquivo: falemais.postman_collection.json
 
+### Testes de carga
+
+- Os testes de carga podem ser executados com jmeter, os scripts com os testes prontos estão no diretório testes-carga;
+
 ## Documentação
 - Os métodos estão disponiveis na rota http://localhost:8080/falemais/swagger-ui.html
  
