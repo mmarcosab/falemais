@@ -55,6 +55,17 @@ Backend:
 
 ## Instalação
 
+#### mvn package
+- Execute o comando mvn package na raiz do projeto para gerar o jar
+- Use esse jar aonde preferir, exemplo no windows: java -jar .\target\falemais-0.0.1-SNAPSHOT.jar
+
+#### Docker
+- Use o arquivo dockerfile na raiz do projeto e gere uma imagem, exemplo de comandos:
+        docker build . -- tag repositorio/nome-da-imagem
+        docker push tag repositorio/nome-da-imagem
+        docker pull repositorio/nome-da-imagem
+        
+        
 
 ## Testes
 ### Testes unitários
